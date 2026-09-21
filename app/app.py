@@ -97,4 +97,20 @@ if st.button("Predict Failure"):
         ]
     })
 
-    st.table(summary)
+    st.subheader("Prediction Interpretation")
+
+    if prediction[0] == 1:
+        st.warning(
+            "The model detected an elevated risk of machine failure. "
+            "Consider inspecting the machine and its operating conditions."
+        )
+    else:
+        st.info(
+            "The model did not detect a failure risk for the provided "
+            "sensor measurements."
+        )
+
+    st.caption(
+        "The failure probability is the model's estimated probability "
+        "for the provided sensor measurements."
+    )
