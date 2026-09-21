@@ -5,14 +5,14 @@ import pandas as pd
 st.set_page_config(
     page_title="PredictMaint AI",
     page_icon="⚙️",
-    layout="centered"
+    layout="wide"
 )
 
 st.title("⚙️ PredictMaint AI")
 st.subheader("Industrial Predictive Maintenance System")
-st.write(
-    "Predict machine failure risk using real-time sensor measurements."
-)
+st.write("Predict machine failure risk using machine sensor measurements.")
+
+st.divider()
 
 st.subheader("Machine Sensor Inputs")
 
@@ -55,7 +55,9 @@ with col2:
         value=100.0
     )
 
-if st.button("Predict Failure"):
+st.divider()
+
+if st.button("🔍 Predict Machine Failure", use_container_width=True):
     model = joblib.load("models/predictmaint_rf.joblib")
 
     machine = pd.DataFrame({
@@ -70,13 +72,41 @@ if st.button("Predict Failure"):
     prediction = model.predict(machine)
     probability = model.predict_proba(machine)[0, 1]
 
-    if prediction[0] == 1:
-        st.error("Machine Failure Risk Detected")
-    else:
-        st.success("Machine Status: NORMAL")
+    st.divider()
+    st.subheader("Prediction Result")
 
-    st.write(f"Failure Probability: {probability:.2%}")
-    st.subheader("Machine Sensor Summary")
+    if prediction[0] == 1:
+        st.error("⚠️ MACHINE FAILURE RISK")
+
+        st.metric(
+            "Failure Probability",
+            f"{probability:.2%}"
+        )
+
+        st.progress(probability)
+
+        st.warning(
+            "The model detected an elevated risk of machine failure. "
+            "Consider inspecting the machine and its operating conditions."
+        )
+
+    else:
+        st.success("✅ MACHINE STATUS: NORMAL")
+
+        st.metric(
+            "Failure Probability",
+            f"{probability:.2%}"
+        )
+
+        st.progress(probability)
+
+        st.info(
+            "The model did not detect a failure risk for the provided "
+            "sensor measurements."
+        )
+
+    st.divider()
+    st.subheader("📊 Machine Sensor Summary")
 
     summary = pd.DataFrame({
         "Parameter": [
@@ -97,20 +127,19 @@ if st.button("Predict Failure"):
         ]
     })
 
-    st.subheader("Prediction Interpretation")
-
-    if prediction[0] == 1:
-        st.warning(
-            "The model detected an elevated risk of machine failure. "
-            "Consider inspecting the machine and its operating conditions."
-        )
-    else:
-        st.info(
-            "The model did not detect a failure risk for the provided "
-            "sensor measurements."
-        )
+    st.dataframe(
+        summary,
+        use_container_width=True,
+        hide_index=True
+    )
 
     st.caption(
-        "The failure probability is the model's estimated probability "
+        "Failure probability represents the model's estimated probability "
         "for the provided sensor measurements."
     )
+
+st.divider()
+
+st.caption(
+    "PredictMaint AI • Industrial Predictive Maintenance"
+)
