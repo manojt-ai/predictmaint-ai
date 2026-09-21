@@ -8,45 +8,52 @@ st.set_page_config(
     layout="centered"
 )
 
-st.title("PredictMaint AI")
-st.write("Industrial Machine Failure Prediction")
+st.title("⚙️ PredictMaint AI")
+st.subheader("Industrial Predictive Maintenance System")
+st.write(
+    "Predict machine failure risk using real-time sensor measurements."
+)
 
 st.subheader("Machine Sensor Inputs")
 
-machine_type = st.selectbox(
-    "Machine Type",
-    ["L", "M", "H"]
-)
+col1, col2 = st.columns(2)
 
-air_temperature = st.number_input(
-    "Air Temperature [K]",
-    min_value=0.0,
-    value=300.0
-)
+with col1:
+    machine_type = st.selectbox(
+        "Machine Type",
+        ["L", "M", "H"]
+    )
 
-process_temperature = st.number_input(
-    "Process Temperature [K]",
-    min_value=0.0,
-    value=310.0
-)
+    air_temperature = st.number_input(
+        "Air Temperature [K]",
+        min_value=0.0,
+        value=300.0
+    )
 
-rotational_speed = st.number_input(
-    "Rotational Speed [rpm]",
-    min_value=0.0,
-    value=1500.0
-)
+    rotational_speed = st.number_input(
+        "Rotational Speed [rpm]",
+        min_value=0.0,
+        value=1500.0
+    )
 
-torque = st.number_input(
-    "Torque [Nm]",
-    min_value=0.0,
-    value=45.0
-)
+with col2:
+    process_temperature = st.number_input(
+        "Process Temperature [K]",
+        min_value=0.0,
+        value=310.0
+    )
 
-tool_wear = st.number_input(
-    "Tool Wear [min]",
-    min_value=0.0,
-    value=100.0
-)
+    torque = st.number_input(
+        "Torque [Nm]",
+        min_value=0.0,
+        value=45.0
+    )
+
+    tool_wear = st.number_input(
+        "Tool Wear [min]",
+        min_value=0.0,
+        value=100.0
+    )
 
 if st.button("Predict Failure"):
     model = joblib.load("models/predictmaint_rf.joblib")
@@ -69,3 +76,4 @@ if st.button("Predict Failure"):
         st.success("Machine Status: NORMAL")
 
     st.write(f"Failure Probability: {probability:.2%}")
+    st.progress(probability)
