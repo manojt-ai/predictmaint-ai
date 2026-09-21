@@ -76,4 +76,25 @@ if st.button("Predict Failure"):
         st.success("Machine Status: NORMAL")
 
     st.write(f"Failure Probability: {probability:.2%}")
-    st.progress(probability)
+    st.subheader("Machine Sensor Summary")
+
+    summary = pd.DataFrame({
+        "Parameter": [
+            "Machine Type",
+            "Air Temperature [K]",
+            "Process Temperature [K]",
+            "Rotational Speed [rpm]",
+            "Torque [Nm]",
+            "Tool Wear [min]"
+        ],
+        "Value": [
+            machine_type,
+            air_temperature,
+            process_temperature,
+            rotational_speed,
+            torque,
+            tool_wear
+        ]
+    })
+
+    st.table(summary)
