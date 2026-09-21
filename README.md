@@ -672,7 +672,7 @@ It should **not** be treated as a guarantee of actual machine failure or as a su
 
 [![GitHub](https://img.shields.io/badge/GitHub-manojt--ai-181717?style=for-the-badge&logo=github)](https://github.com/manojt-ai)
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Manojkumar%20T-0A66C2?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/manojkumar-t-aiml/)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Manojkumar%20T-0A66C2?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/manojt-ai/)
 
 </div>
 
